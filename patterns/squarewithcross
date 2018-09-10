@@ -1,0 +1,45 @@
+
+import java.util.Scanner;
+
+
+public class squarewithcross {
+     public static void main(String[] args) {
+    Scanner in=new Scanner(System.in);
+    int n=in.nextInt(),m=0;
+    for(int i=1;i<=n;i++)
+    {
+        if(i==1)
+            for(int k=1;k<=n;k++)
+                System.out.print(k+" ");
+        if(i==n)
+              for(int k=n;k>=1;k--)
+                System.out.print(k+" ");
+        if(i>1 && i<n)
+        {
+            for(int k=1;k<=n;k++)
+            {
+                if(k==1 )
+                    System.out.print(i+" ");
+                 if( k==n)
+                     
+                 {
+                     if(n>9)
+             for (int o=1;o<n-9;o++)
+                    System.out.print(" ");
+                     System.out.print(n-i+1+" ");
+                 }
+                  if(k>1 && k<n)
+                  {
+                      if(k==i || k==n-i+1)
+                          System.out.print("* ");
+                    else
+                          System.out.print("  ");
+                          
+                      
+                  }
+            }
+        }
+        System.out.println();
+    }
+    }
+}
