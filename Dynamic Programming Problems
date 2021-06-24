@@ -1,1 +1,97 @@
-Problems under this folders are solved using dynamic programming(https://www.geeksforgeeks.org/dynamic-programming/).
+//$Id$
+package testing;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class DymanicProgramming {
+
+	int maxAmount =0;
+
+	//function used to show the possible changes for the given amount.
+//	  int arr[] = {1, 2, 4};
+//    int m = arr.length;
+//    DymanicProgramming dyp = new DymanicProgramming();
+//    System.out.println(dyp.coinChangeAlgorithm(arr, m, 1));
+	public int coinChangeAlgorithm(int array[], int arraySize, int amount) {
+		if (amount == 0)
+            return 1;
+        if (amount < 0)
+            return 0;
+        if (arraySize <=0 && amount >= 1)
+            return 0;
+        //first count is for divide the problem for list of numbers like in 124,12,1
+        return coinChangeAlgorithm( array, arraySize - 1, amount ) +
+        		coinChangeAlgorithm( array, arraySize, amount-array[arraySize-1] );
+		
+	}
+	
+	//function used to find the possible combinations of the given numbers
+//	int arr[] = {1, 2, 3, 4};
+//	int m = arr.length;
+//  DymanicProgramming dyp = new DymanicProgramming();
+//  dyp.possibleCombinations(arr, m-1,new ArrayList<Integer>());
+	public void possibleCombinations(int array[],int arraySize,List<Integer> combinations) {
+		if(arraySize < 0) {
+			return;
+		}
+		//below line is to divide the problem to sub problems
+		possibleCombinations(array,arraySize-1,combinations);
+		int element = array[arraySize];
+		if(combinations.contains(element)) {
+			return;
+		}
+		combinations.add(element);
+		System.out.println(Arrays.toString(combinations.toArray()));
+		possibleCombinations(array,arraySize,combinations);
+		combinations .remove(combinations.size()-1);
+	}
+	
+	//permutation of 12 is 12,21
+//	dyp.permutation("123",0);
+	public void permutation(String string,int pos) {
+		if(pos > string.length()-1) {
+			System.out.println(string);
+			return;
+		}
+		for(int i=pos;i<string.length();i++) {
+			string = swapString(pos,i,string);
+			permutation(string,pos+1);
+			string = swapString(pos,i,string);
+			
+		}
+	}
+	
+	//https://www.codesdope.com/course/algorithms-rod-cutting/
+//	int[] unitArray = {1,2,3,4};
+//	int[] amountArray = {10,24,30,80};
+//	DymanicProgramming dyp = new DymanicProgramming();
+//	dyp.rodCutting(4,unitArray.length-1, unitArray, amountArray,0);
+//	System.out.println(dyp.maxAmount);
+	public void rodCutting(int rodLength,int size,int[] unitArray,int[] amountArray,int tempAmount) {
+		if(size < 0) {
+			return;
+		}
+		int unit = unitArray[size];
+		if(unit > rodLength) {
+			return;
+		}
+		rodCutting(rodLength, size-1, unitArray, amountArray,tempAmount);
+		rodCutting(rodLength-unit, size, unitArray, amountArray,tempAmount+amountArray[size]);
+		if(tempAmount+amountArray[size] > maxAmount) {
+			maxAmount = tempAmount+amountArray[size];
+		}
+		tempAmount=0;
+	}
+	
+	private String swapString(int pos1,int pos2,String string) {
+		char[] str=string.toCharArray();
+		char temp = str[pos2];
+		str[pos2]=str[pos1];
+		str[pos1]=temp;
+		return String.valueOf(str);
+	}
+	
+
+}
