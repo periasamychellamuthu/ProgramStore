@@ -1,0 +1,15 @@
+# https://www.codesdope.com/course/algorithms-coin-change/
+# here solved this problem using coin change algorithm
+
+public int coinChangeAlgorithm(int array[], int arraySize, int amount) {
+    if (amount == 0)
+        return 1;
+    if (amount < 0)
+        return 0;
+    if (arraySize <=0 && amount >= 1)
+        return 0;
+    //first count is for divide the problem for list of numbers like in 124,12,1
+    return coinChangeAlgorithm( array, arraySize - 1, amount ) +
+            coinChangeAlgorithm( array, arraySize, amount-array[arraySize-1] );
+    
+}

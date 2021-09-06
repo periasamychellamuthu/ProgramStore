@@ -1,0 +1,21 @@
+//https://www.codesdope.com/course/algorithms-rod-cutting/
+//	int[] unitArray = {1,2,3,4};
+//	int[] amountArray = {10,24,30,80};
+//	DymanicProgramming dyp = new DymanicProgramming();
+//	dyp.rodCutting(4,unitArray.length-1, unitArray, amountArray,0);
+//	System.out.println(dyp.maxAmount);
+public void rodCutting(int rodLength,int size,int[] unitArray,int[] amountArray,int tempAmount) {
+    if(size < 0) {
+        return;
+    }
+    int unit = unitArray[size];
+    if(unit > rodLength) {
+        return;
+    }
+    rodCutting(rodLength, size-1, unitArray, amountArray,tempAmount);
+    rodCutting(rodLength-unit, size, unitArray, amountArray,tempAmount+amountArray[size]);
+    if(tempAmount+amountArray[size] > maxAmount) {
+        maxAmount = tempAmount+amountArray[size];
+    }
+    tempAmount=0;
+}
